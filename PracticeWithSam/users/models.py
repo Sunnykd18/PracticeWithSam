@@ -9,9 +9,12 @@ class Buyer(models.Model):
 
 
 class Seller(models.Model):
-    name = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.user.username
+
+
+
 
 
