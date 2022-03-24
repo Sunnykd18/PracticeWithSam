@@ -10,7 +10,9 @@
             </div>
             <h2><a class="article-title" href="#">{{ blog.title }}</a></h2>
             <p class="article-content">{{ blog.content }}</p>
-            <p class="article-categories">{{ blog.categories }}</p>
+              {% for category in blog.blog_categories.all %}
+                          <p class="article-categories">{{ category.name }}</p>
+              {% endfor %}
             <a href="{% url 'update_blog' blog.id %}" class="list-group-item list-group-item-action list-group-item-primary">Update</a>
             <a href="{% url 'delete_blog' blog.id %}" class="list-group-item list-group-item-action list-group-item-danger">Delete</a>
             <a href="{% url 'blog_detail' blog.id %}" class="list-group-item list-group-item-action list-group-item-dark">Detail</a>

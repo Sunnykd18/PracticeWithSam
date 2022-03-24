@@ -4,15 +4,16 @@ from blog.forms import CreateBlogForm
 
 def blog_list(request):
     context ={
-        'objects': Blog.objects.all()
+        'objects': Blog.objects.all(),
     }
     return render(request, 'blog/blog_list.html', context=context)
 
 def blog_detail(request, blog_id):
     context ={
-        'blog':Blog.objects.get(id=blog_id)
+        'blog':Blog.objects.get(id=blog_id),
     }
     return render(request, 'blog/blog_detail.html', context=context)
+
 
 def create_blog(request):
     context ={}
@@ -46,16 +47,7 @@ def update_blog(request, blog_id):
 
 def delete_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
-    if request.method == 'POST':
-        update_blog = CreateBlogForm(request.POST or None , instance=blog)
-        if update_blog:
-            blog.delete()
-            return redirect('blog_list')
-        context = {
-            'error': 'This is an error'
-        }
-    form = CreateBlogForm(instance=blog)
-    context={
-        'form': form
-    }
-    return render(request, 'blog/delete_blog.html', context=context)
+    if blog:
+        blog.delete()
+
+    return redirect('blog_list')
