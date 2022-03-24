@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<h1 > Blogs</h1>
+  {% for blog in objects %}
+      <article class="media content-section">
+          <img class = "rounded circle article-img" src="">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ blog.user }}</a>
+            </div>
+            <h2><a class="article-title" href="#">{{ blog.title }}</a></h2>
+            <p class="article-content">{{ blog.content }}</p>
+            <p class="article-categories">{{ blog.categories }}</p>
+
+          </div>
+      </article>
+  {% endfor %}
+{% endblock content %}

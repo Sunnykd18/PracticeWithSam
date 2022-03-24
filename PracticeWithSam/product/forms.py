@@ -10,28 +10,11 @@ class CreateProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['name', 'price', 'seller', 'categories']
+        fields = ['name', 'price', 'categories']
 
 
 class CreateCategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name']
-
-
-class UpdateProductForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = ['name', 'price', 'categories']
-
-    def save(self, commit=True):
-        product = self.instance
-        product.name = self.cleaned_data['name']
-        product.price = self.cleaned_data['price']
-        product.categories = self.cleaned_data['categories']
-
-        if commit:
-            product.save()
-        return product
-
 

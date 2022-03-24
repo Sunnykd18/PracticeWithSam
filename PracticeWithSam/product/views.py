@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Product
-from product.forms import CreateProductForm, CreateCategoryForm, UpdateProductForm
+from .models import Product, Category
+from product.forms import CreateProductForm, CreateCategoryForm
 
 
 def product_list(request):
@@ -24,7 +24,8 @@ def create_product(request):
     if request.method == "POST":
         form = CreateProductForm(request.POST or None)
         if form.is_valid():
-            form.save()
+            product = form.save()
+            # product.seller =
             return redirect('product_list')
     else:
         form = CreateProductForm()
@@ -50,21 +51,45 @@ def update_product(request, pro_id):
     product = Product.objects.get(id=pro_id)
 
     if request.method == 'POST':
-        update_form = UpdateProductForm(request.POST or None, instance=product)
+        update_form = CreateProductForm(request.POST or None, instance=product)
         if update_form.is_valid():
             product_ = update_form.save(commit=False)
             product_.save()
-            product = product_
-            return redirect('product_list', id=pro_id)
-    form = UpdateProductForm(
-        initial={
-            "name": product.name,
-            "price": product.price,
-            "categories": product.categories,
-        }
-    )
+            return redirect('product_list')
+    form = CreateProductForm(instance=product)
     context = {
         "form": form,
-        "product": product,
     }
     return render(request, 'product/update_product.html', context=context)
+
+def update_category(request, cat_id):
+    cat = Category.objects.get(id=cat_id)
+
+    if request.method == 'POST':
+        update_form = CreateCategoryForm(request.POST or None, instance=cat)
+        if update_form.is_valid():
+            cat_ = update_form.save(commit=False)
+            cat_.save()
+            return redirect('product_list')
+    form = CreateCategoryForm(instance=cat)
+    context = {
+        "form": form,
+    }
+    return render(request, 'product/update_category.html', context=context)
+
+def delete_product(request, pro_id):
+    product = Product.objects.get(id=pro_id)
+
+    if request.method == 'POST':
+        update_form = CreateProductForm(request.POST or None, instance=product)
+        if update_form:
+            product.delete()
+            return redirect('product_list')
+        context = {
+                "error": "this is error",
+        }
+    form = CreateProductForm(instance=product)
+    context = {
+        "form": form
+    }
+    return render(request,'product/delete_product.html',context=context)
