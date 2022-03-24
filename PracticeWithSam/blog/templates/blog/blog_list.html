@@ -1,9 +1,9 @@
 {% extends "blog/base.html" %}
 {% block content %}
-<h1 > Blogs</h1>
+<h1 ><center>Blogs</center></h1>
   {% for blog in objects %}
       <article class="media content-section">
-          <img class = "rounded circle article-img" src="">
+          <img class = "rounded circle article-img" src="{{ blog.image }}">
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="#">{{ blog.user }}</a>
@@ -11,6 +11,9 @@
             <h2><a class="article-title" href="#">{{ blog.title }}</a></h2>
             <p class="article-content">{{ blog.content }}</p>
             <p class="article-categories">{{ blog.categories }}</p>
+            <a href="{% url 'update_blog' blog.id %}" class="list-group-item list-group-item-action list-group-item-primary">Update</a>
+            <a href="{% url 'delete_blog' blog.id %}" class="list-group-item list-group-item-action list-group-item-danger">Delete</a>
+            <a href="{% url 'blog_detail' blog.id %}" class="list-group-item list-group-item-action list-group-item-dark">Detail</a>
 
           </div>
       </article>

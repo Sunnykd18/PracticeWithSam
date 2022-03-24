@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from .models import Blog,BlogCategory
 from blog.forms import CreateBlogForm
 
@@ -30,7 +30,8 @@ def create_blog(request):
 
 def update_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
-    if request.moethod == 'POST':
+
+    if request.method == 'POST':
         update_blog = CreateBlogForm(request.POST or None, instance=blog)
         if update_blog.is_valid():
             blog_ = update_blog.save(commit= False)
@@ -39,11 +40,11 @@ def update_blog(request, blog_id):
 
     form=CreateBlogForm(instance=blog)
     context = {
-        'form':form
+        'form':form,
     }
     return render(request, 'blog/update_blog.html', context=context)
 
-def delete_blog(request,blog_id):
+def delete_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
     if request.method == 'POST':
         update_blog = CreateBlogForm(request.POST or None , instance=blog)
@@ -57,4 +58,4 @@ def delete_blog(request,blog_id):
     context={
         'form': form
     }
-    return redirect(request, 'blog/blog_delete.html', context=context)
+    return render(request, 'blog/delete_blog.html', context=context)

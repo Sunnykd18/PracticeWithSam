@@ -1,0 +1,19 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {%load crispy_forms_tags %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ createblog_form|crispy }}
+                <button class="submit-button btn btn-lg btn-primary btn-block" type="submit">Create</button>
+    </form>
+</body>
+</html>
+{% endblock content %}
