@@ -55,12 +55,12 @@ def delete_blog(request, blog_id):
 
 def blog_by_category(request, category_id):
     context = {
-        'objects': Blog.objects.filter(category__in=category_id),
-        'categories':BlogCategory.objects.all(),
-        'category':BlogCategory.objects.get(id=category_id),
+        'objects': Blog.objects.filter(blog_categories__in=[category_id]),
+        'blog_categories': BlogCategory.objects.all(),
+        'category': BlogCategory.objects.get(id=category_id),
     }
     if len(context['objects']) == 0:
-        context['message'] = "No blog of "+str(context['category']) +"category"
+        context['message'] = "No blog of "+str(context['category']) +"category."
     else:
-        context['message'] = "Blog with " +str(context['category']) +"category"
+        context['message'] = "Blog with " +str(context['category']) +"category."
     return render(request, 'blog/blog_list.html', context=context)
