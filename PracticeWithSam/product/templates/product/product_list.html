@@ -1,9 +1,6 @@
 {% extends 'product/base.html' %}
 
 {% block content %}
-
-
-
 <!-- body -->
 <div class="container-fluid mt-3">
 	<div class="row">
@@ -12,11 +9,11 @@
 		<div class="col-lg-3 mx-auto">
 			<div class="list-group">
 
-				<a href="/" class="list-group-item list-group-item-action">All Products</a>
+				<h3 href="{% url 'product_list' %}"class="list-group-item list-group-item-action">All Products</h3>
 
-				{% for category in categories %}
-				<a href="/?category={{category.id}}"
-					class="list-group-item list-group-item-action">{{category.name}}</a>
+				{% for cat in categories %}
+				<a href="{% url 'product_by_category' cat.id %}"
+					class="list-group-item list-group-item-action">{{ cat.name}}</a>
 				{% endfor %}
 			</div>
 		</div>
@@ -24,13 +21,14 @@
 		<!-- all products -->
 		<div id='products' class="col-lg-9 mx-auto">
 			<div class="row mx-auto">
+				<h2 > <center>{{ messages }}</center></h2>
+
 				{% for product in objects %}
 				<div class="card mx-auto mb-3" id={{ product.id }} style="width: 18rem;">
 					<img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
 					<div class="card-body">
 						<p class="card-title">{{product.name}}</p>
 						<p class="card-text"><b>{{product.price}}</b></p>
-
 					</div>
 
 					<div class="card-footer p-0 no-gutters">
@@ -57,8 +55,6 @@
 							<input type="submit" class="float-right btn btn-light  form-control"
 								value="Add To Cart">
 						</form>
-
-
 					</div>
 
 				</div>

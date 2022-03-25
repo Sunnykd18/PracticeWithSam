@@ -3,10 +3,18 @@ from .models import Product, Category
 from product.forms import CreateProductForm, CreateCategoryForm
 
 
-def product_list(request):
+def product_list(request, **kwargs):
     context = {
         'objects': Product.objects.all(),
+        'categories': Category.objects.all(),
     }
+    # result = []
+    # for pro in Product.objects.all():
+    #     cat_1 = [ids['id'] for ids in pro.categories.all().values('id')]
+    #     print(cat_1, "CAT_!")
+    #     if 4 in cat_1:
+    #         result.append(pro)
+    # print(result, "RESUTL")
     return render(request, 'product/product_list.html', context=context)
 
 
@@ -62,6 +70,7 @@ def update_product(request, pro_id):
     }
     return render(request, 'product/update_product.html', context=context)
 
+
 def update_category(request, cat_id):
     cat = Category.objects.get(id=cat_id)
 
@@ -77,6 +86,7 @@ def update_category(request, cat_id):
     }
     return render(request, 'product/update_category.html', context=context)
 
+
 def delete_product(request, pro_id):
     product = Product.objects.get(id=pro_id)
 
@@ -86,10 +96,24 @@ def delete_product(request, pro_id):
             product.delete()
             return redirect('product_list')
         context = {
-                "error": "this is error",
+            "error": "this is error",
         }
     form = CreateProductForm(instance=product)
     context = {
         "form": form
     }
-    return render(request,'product/delete_product.html',context=context)
+    return render(request, 'product/delete_product.html', context=context)
+
+
+def product_by_category(request, category_id):
+    context = {
+        'objects': Product.objects.filter(categories__in=[category_id]),
+        'categories': Category.objects.all(),
+        'category': Category.objects.get(id=category_id),
+
+    }
+    if len(context['objects']) == 0:
+        context['messages'] = "No product of this category"
+    else:
+        context['messages'] = "Product with category"
+    return render(request, 'product/product_list.html', context=context)
