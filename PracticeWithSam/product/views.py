@@ -113,7 +113,7 @@ def product_by_category(request, category_id):
 
     }
     if len(context['objects']) == 0:
-        context['messages'] = "No product of this category"
+        context['messages'] = "No product of " + str(context['category']) +" category."
     else:
-        context['messages'] = "Product with category"
+        context['messages'] = "Product with " + str(context['category']) + " category."
     return render(request, 'product/product_list.html', context=context)
