@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product, Category
+from .models import Product, Category, Wishlist
 from product.forms import CreateProductForm, CreateCategoryForm
 
 
@@ -117,3 +117,15 @@ def product_by_category(request, category_id):
     else:
         context['messages'] = "Product with " + str(context['category']) + " category."
     return render(request, 'product/product_list.html', context=context)
+
+
+# def get_wishlist(self, request):
+#     user = request.session.get('user')
+#     wishlist = Wishlist.get_wishlist_by_user(user)
+#     print(wishlist)
+#     return render(request, 'wishlist.html', {'wishlist': wishlist})
+
+#
+# def add_wishlist_by_user(request,username_id):
+#     wishlist = WishList.objects.get(id=username_id)
+#     request.user

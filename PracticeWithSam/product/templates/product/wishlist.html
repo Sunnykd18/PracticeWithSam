@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% for list in wishlist %}
+      <img style="height: 80px;" class="rounded-circle" src="{{ wishlist.product.image.url }}" alt="">
+        {{ list.product.name }}
+        {{ list.quantity }}
+    {% endfor %}
+</body>
+</html>

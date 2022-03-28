@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import Seller, Buyer
+from django.contrib.auth.models import User
 
 
 class Product(models.Model):
@@ -22,3 +23,14 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+class Wishlist(models.Model):
+    product = models.ManyToManyField(Product)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+    def list(self):
+        self.save()
+
+
+
