@@ -110,22 +110,19 @@ def product_by_category(request, category_id):
         'objects': Product.objects.filter(categories__in=[category_id]),
         'categories': Category.objects.all(),
         'category': Category.objects.get(id=category_id),
-
     }
     if len(context['objects']) == 0:
-        context['messages'] = "No product of " + str(context['category']) +" category."
+        context['message_'] = "No product of " + str(context['category']) +" category."
     else:
-        context['messages'] = "Product with " + str(context['category']) + " category."
+        context['message_'] = "Product with " + str(context['category']) + " category."
     return render(request, 'product/product_list.html', context=context)
 
 
-# def get_wishlist(self, request):
-#     user = request.session.get('user')
-#     wishlist = Wishlist.get_wishlist_by_user(user)
-#     print(wishlist)
-#     return render(request, 'wishlist.html', {'wishlist': wishlist})
-
-#
-# def add_wishlist_by_user(request,username_id):
-#     wishlist = WishList.objects.get(id=username_id)
-#     request.user
+def get_wishlist_by_user(request, id):
+    product = Product.objects.get(id=id)
+    try:
+        wishlist = Wishlist.objects.get(user=request.user)
+    except DoesNotExist:
+        wishlist = Wishlist.objects.create(user=request.user)
+    wishlist.product.add(product)
+    return redirect('product_list')

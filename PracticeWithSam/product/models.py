@@ -27,7 +27,6 @@ class Category(models.Model):
 class Wishlist(models.Model):
     product = models.ManyToManyField(Product)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
 
     def list(self):
         self.save()

@@ -10,5 +10,5 @@ urlpatterns = [
     path('delete-product/<int:pro_id>', views.delete_product, name='delete_product'),
     path('update-category/<int:cat_id>', views.update_category, name='update_category'),
     path('product-by-categories/<int:category_id>', views.product_by_category, name='product_by_category'),
-
+    path('add-wishlist/<int:id>', views.get_wishlist_by_user, name='add_wishlist'),
 ]
