@@ -1,3 +1,6 @@
+{% extends 'product/base.html' %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +9,15 @@
 </head>
 <body>
 
-        {{ obj.name }}
-        {{ obj.price }}
-        {{ obj.seller }}
-        {{ obj.categories }}
-
+<div class="card">
+  <img src={{ product.image.url }} alt="Denim Jeans" style="width:100%">
+  <h1>{{obj.name}}</h1>
+  <p class="price">{{obj.price}}</p>
+  <p>{{ obj.seller }}</p>
+  <p>{{ obj.categories }}</p>
+  <p><button>Add to Cart</button></p>
+</div>
 </body>
 </html>
+</div>
+{% endblock %}

@@ -52,12 +52,12 @@
 							<input type="submit" class="float-right btn btn-light  form-control"
 								value="Add To Cart">
 						</form>
-						<form action="/#{{ product.id }}" class="btn-block">
+						<form action="#" class="btn-block">
 							<input hidden type="text" name='product' value='{{ product.id}}'>
-							<input type="submit" class="float-right btn btn-light  form-control"
+							<input href="{% url 'add_wishlist' product.id %}"type="submit" class="float-right btn btn-dark  form-control"
 								value="Add To Whislist">
 						</form>
-						<a class="btn btn-outline-info" href="{% url 'add_wishlist' product.id %}"></a>
+
 					</div>
 
 				</div>

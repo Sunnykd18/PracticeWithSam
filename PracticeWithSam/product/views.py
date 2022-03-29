@@ -125,4 +125,6 @@ def get_wishlist_by_user(request, id):
     except DoesNotExist:
         wishlist = Wishlist.objects.create(user=request.user)
     wishlist.product.add(product)
-    return redirect('product_list')
+
+    return render(request, 'product/product_list', context=context)
+
