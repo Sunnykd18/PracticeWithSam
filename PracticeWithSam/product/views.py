@@ -22,6 +22,7 @@ def product_detail(request, pro_id):
     product = Product.objects.get(id=pro_id)
     context = {
         'obj': product,
+
     }
     return render(request, 'product/product_detail.html', context=context)
 
