@@ -132,7 +132,7 @@ def get_wishlist_by_user(request, id):
 
 def wishlist_product(request):
     context = {
-        'wishlist': Wishlist.objects.filter(user=request.user),
+        'wishlist': Wishlist.objects.filter(user=request.user)[0],
     }
 
     return render(request, 'product/wishlist.html', context=context)

@@ -28,8 +28,8 @@ class Wishlist(models.Model):
     product = models.ManyToManyField(Product)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def list(self):
-        self.save()
+    def __str__(self):
+        return f"{self.user.username}'s wishlist"
 
 
 

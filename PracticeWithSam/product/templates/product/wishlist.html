@@ -9,8 +9,14 @@
 </head>
 <body>
 
-    {{ wishlist.product }}
-    {{ wishlist.user }}
+{% for product in wishlist.product.all  %}
+    <h1>{{ forloop.counter }}.</h1>
+    <h3>{{ product.name }}</h3>
+    {% for cat in product.categories.all %}
+        <h3>{{ cat.name }}</h3>
+    {% endfor %}
+    <h3>{{ product.image }}</h3>
+{% endfor %}
 
 </body>
 </html>
