@@ -54,9 +54,10 @@
 						</form>
 						<form action="#" class="btn-block">
 							<input hidden type="text" name='product' value='{{ product.id}}'>
-							<input href="{% url 'add_wishlist' product.id %}"type="submit" class="float-right btn btn-dark  form-control"
-								value="Add To Whislist">
+
 						</form>
+						<a href="{% url 'add_wishlist' product.id %}" class="btn btn-outline-info">Add to Whishlist</a>
+
 
 					</div>
 

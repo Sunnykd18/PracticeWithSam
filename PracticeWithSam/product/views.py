@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Product, Category, Wishlist
 from product.forms import CreateProductForm, CreateCategoryForm
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def product_list(request, **kwargs):
@@ -113,7 +114,7 @@ def product_by_category(request, category_id):
         'category': Category.objects.get(id=category_id),
     }
     if len(context['objects']) == 0:
-        context['message_'] = "No product of " + str(context['category']) +" category."
+        context['message_'] = "No product of " + str(context['category']) + " category."
     else:
         context['message_'] = "Product with " + str(context['category']) + " category."
     return render(request, 'product/product_list.html', context=context)
@@ -123,9 +124,15 @@ def get_wishlist_by_user(request, id):
     product = Product.objects.get(id=id)
     try:
         wishlist = Wishlist.objects.get(user=request.user)
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         wishlist = Wishlist.objects.create(user=request.user)
     wishlist.product.add(product)
+    return redirect('product_list')
 
-    return render(request, 'product/product_list', context=context)
 
+def wishlist_product(request):
+    context = {
+        'wishlist': Wishlist.objects.filter(user=request.user),
+    }
+
+    return render(request, 'product/wishlist.html', context=context)
