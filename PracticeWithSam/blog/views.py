@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Blog, BlogCategory, SavePost
-from blog.forms import CreateBlogForm
+from blog.forms import CreateBlogForm, CreateSavePostForm
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def blog_list(request):
@@ -71,8 +72,25 @@ def blog_by_category(request, category_id):
     return render(request, 'blog/blog_list.html', context=context)
 
 
-def save_post_by_Categories(request, id):
-    blog = Blog.objects.get(id=id)
-    try:
-        bloglist =
+def create_save_post(request):
+    context = {}
+    if request.method == 'POST':
+        form = CreateSavePostForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect('blog_list')
+    else:
+        form = CreateSavePostForm()
+        context = {
+            'create_save_post': form
+        }
+    return render(request, 'blog/create_save_post.html', context=context)
+
+
+def user_bloglist(request):
+    context = {
+        'user_bloglist': SavePost.objects.filter(user=request.user)
+    }
+    return render(request, 'blog/user_bloglist.html', context=context)
+
 
