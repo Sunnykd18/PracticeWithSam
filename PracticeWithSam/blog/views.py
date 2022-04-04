@@ -11,6 +11,7 @@ def blog_list(request):
     context = {
         'objects': Blog.objects.all(),
         'categories': BlogCategory.objects.all(),
+
     }
     return render(request, 'blog/blog_list.html', context=context)
 
@@ -102,5 +103,16 @@ def add_to_save_post(request, blog_id, save_post_id):
         save_post.blog.add(new_blog)
         return redirect('blog_list')
 
-def post_list(request)
 
+def saved_post_list(request, blog_id):
+    context = {
+            'saved_post': SavePost.objects.all(),
+            'blog': Blog.objects.get(id=blog_id),
+            'categories': BlogCategory.objects.all(),
+    }
+    # if context['saved_post']:
+    #     context['saved_postlist'] = context['saved_post']
+    # else:
+    #     return redirect('blog_list')
+
+    return render(request, 'blog/saved_post.html', context=context)

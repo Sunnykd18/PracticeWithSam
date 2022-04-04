@@ -1,11 +1,9 @@
 {% extends 'product/base.html' %}
-
 {% block content %}
 <!-- body -->
 <div class="container-fluid mt-3">
 	<div class="row">
 		<!-- filter -->
-
 		<div class="col-lg-3 mx-auto">
 			<div class="list-group">
 
@@ -17,12 +15,10 @@
 				{% endfor %}
 			</div>
 		</div>
-
 		<!-- all products -->
 		<div id='products' class="col-lg-9 mx-auto">
 			<div class="row mx-auto">
 				<h2 ><center>{{ message_ }}</center></h2>
-
 				{% for product in objects %}
 				<div class="card mx-auto mb-3" id={{ product.id }} style="width: 18rem;">
 					<img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
@@ -45,7 +41,6 @@
 						<input type="submit" value=" + " class="btn btn-block btn-light border-left">
 							</form>
 						</div>
-
 						<form action="/#{{product.id}}" method="POST" class="btn-block">
 							{% csrf_token %}
 							<input hidden type="text" name='product' value='{{product.id}}'>
@@ -54,13 +49,9 @@
 						</form>
 						<form action="#" class="btn-block">
 							<input hidden type="text" name='product' value='{{ product.id}}'>
-
 						</form>
 						<a href="{% url 'add_wishlist' product.id %}" class="btn btn-outline-info">Add to Whishlist</a>
-
-
 					</div>
-
 				</div>
 				{% endfor %}
 			</div>

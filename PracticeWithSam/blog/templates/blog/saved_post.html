@@ -1,0 +1,58 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <div class="row">
+        <!-- filter -->
+        <div class="col-lg-3 mx-auto my-4">
+            <div class="list-group">
+                <h3 href="{% url 'blog_list' %}" class="list-group-item list-group-item-action">All Blogs Category</h3>
+
+                {% for cat in categories %}
+                    <a href="{% url 'blog_by_category' cat.id %}"
+                       class="list-group-item list-group-item-action">{{ cat.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card my-4 centered">
+            <h2>
+                <center>{{ message }}</center>
+            </h2>
+            <article class="media content-section col-lg-10">
+                <img class="rounded circle article-img" src="{{ blog.image }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="#">{{ blog.user }}</a>
+                    </div>
+                    <h2><a class="article-title" href="#">{{ blog.title }}</a></h2>
+                    <p class="article-content">{{ blog.content }}</p>
+                    {% for category in blog.blog_categories.all %}
+                        <p class="article-categories">{{ category.name }}</p>
+                    {% endfor %}
+                    <a href="{% url 'update_blog' blog.id %}"
+                       class="list-group-item list-group-item-action list-group-item-primary">Update</a>
+                    <a href="{% url 'delete_blog' blog.id %}"
+                       class="list-group-item list-group-item-action list-group-item-danger">Delete</a>
+
+                    <a href="{% url 'blog_detail' blog.id %}"
+                       class="list-group-item list-group-item-action list-group-item-dark">Detail</a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+    <div id='products' class="col-lg-9 mx-auto">
+        {% for obj in saved_post %}
+            <div class="row mx-auto">
+            <div class="card mx-auto mb-3" id="" style="width: 18rem;">
+            <img class="card-img-top" src="{{ blog.image.url }}" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-title">{{ obj.name }}</p>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock content %}
+
+
+{#                        {% for object in obj.blog.all %}#}
+{#                            {{ object.title }}#}
+{#                        {% endfor %}#}
