@@ -35,7 +35,6 @@ def create_product(request):
         form = CreateProductForm(request.POST or None)
         if form.is_valid():
             product = form.save()
-            # product.seller =
             return redirect('product_list')
     else:
         form = CreateProductForm()

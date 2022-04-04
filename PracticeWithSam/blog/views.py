@@ -5,6 +5,9 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 def blog_list(request):
+    print(request, "Request")
+    print(request.user, "User")
+    print(request.user.username, "Username")
     context = {
         'objects': Blog.objects.all(),
         'categories': BlogCategory.objects.all(),
@@ -72,12 +75,14 @@ def blog_by_category(request, category_id):
     return render(request, 'blog/blog_list.html', context=context)
 
 
-def create_save_post(request):
-    context = {}
+def create_save_post(request, blog_id):
+    blog = Blog.objects.get(id=blog_id)
     if request.method == 'POST':
         form = CreateSavePostForm(request.POST or None)
         if form.is_valid():
-            form.save()
+            form_obj = form.save()
+            form_obj.blog.add(blog)
+
             return redirect('blog_list')
     else:
         form = CreateSavePostForm()
@@ -87,10 +92,15 @@ def create_save_post(request):
     return render(request, 'blog/create_save_post.html', context=context)
 
 
-def user_bloglist(request):
-    context = {
-        'user_bloglist': SavePost.objects.filter(user=request.user)
-    }
-    return render(request, 'blog/user_bloglist.html', context=context)
+def add_to_save_post(request, blog_id, save_post_id):
+    if not request.user.is_authenticated():
+        return redirect("login")
+    new_blog = Blog.objects.get(id=blog_id)
+    save_post = SavePost.objects.get(id=save_post_id)
+    current_user = User.objects.get(username=request.user.username)
+    if save_post:
+        save_post.blog.add(new_blog)
+        return redirect('blog_list')
 
+def post_list(request)
 
