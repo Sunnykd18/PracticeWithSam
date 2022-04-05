@@ -1,7 +1,7 @@
 {% extends "blog/base.html" %}
 {% block content %}
     <div class="row">
-        <!-- filter -->
+    <!-- filter -->
         <div class="col-lg-3 mx-auto my-4">
             <div class="list-group">
                 <h3 href="{% url 'blog_list' %}" class="list-group-item list-group-item-action">All Blogs Category</h3>
@@ -37,18 +37,33 @@
             </article>
         </div>
     </div>
-    <div id='products' class="col-lg-9 mx-auto">
-        {% for obj in saved_post %}
-            <div class="row mx-auto">
-            <div class="card mx-auto mb-3" id="" style="width: 18rem;">
-            <img class="card-img-top" href="{  }" src="{{ blog.image.url }}" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-title">{{ obj.name }}</p>
-            </div>
-        {% endfor %}
-    </div>
-{% endblock content %}
 
+    <div class="aligned">
+        <div class="row mx-auto ">
+                {% for obj in saved_post %}
+
+                        <div class="card mx-auto mb-3" id="" style="width: 18rem;">
+                            <div class="card-body">
+                                {#                <h2><a class="card-title" href="{% url 'saved_post_list_by_name' obj.id %}">{{ obj.name }}</a></h2>#}
+                                {#                    {{ new_blog }}#}
+                                {#                    {{ save_post }}#}
+                                {% if request.user.is_authenticated %}
+                                    <h4><a class="card-title"
+                                           href="{% url 'add_to_save_post' blog.id obj.id %}">Saved-post {{ obj.name }}</a></h4>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                {% endfor %}
+                <div class = "card-body">
+                    <a class="card-title" href="{% url 'create_save_post' blog.id %}">Add List</a>
+                </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
 
 {#                        {% for object in obj.blog.all %}#}
 {#                            {{ object.title }}#}

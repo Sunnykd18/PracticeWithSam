@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Blog, BlogCategory, SavePost
 from blog.forms import CreateBlogForm, CreateSavePostForm
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User
 
 
 def blog_list(request):
@@ -94,14 +95,17 @@ def create_save_post(request, blog_id):
 
 
 def add_to_save_post(request, blog_id, save_post_id):
-    if not request.user.is_authenticated():
-        return redirect("login")
-    new_blog = Blog.objects.get(id=blog_id)
-    save_post = SavePost.objects.get(id=save_post_id)
-    current_user = User.objects.get(username=request.user.username)
-    if save_post:
-        save_post.blog.add(new_blog)
-        return redirect('blog_list')
+    # if  request.user.is_authenticated():
+    #     return redirect("login")
+    context = {
+        'new_blog': Blog.objects.get(id=blog_id),
+        'save_post': SavePost.objects.get(id=save_post_id),
+        'current_user': User.objects.get(username=request.user.username)
+    }
+    save_post = context['save_post']
+    new_blog = context['new_blog']
+    save_post.blog.add(new_blog)
+    return redirect('blog_list')
 
 
 def saved_post_list(request, blog_id):
