@@ -6,9 +6,7 @@
 		<!-- filter -->
 		<div class="col-lg-3 mx-auto">
 			<div class="list-group">
-
 				<h3 href="{% url 'product_list' %}"class="list-group-item list-group-item-action">All Products</h3>
-
 				{% for cat in categories %}
 				<a href="{% url 'product_by_category' cat.id %}"
 					class="list-group-item list-group-item-action">{{ cat.name }}</a>

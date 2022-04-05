@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+            {{ saved_post.name }}
+            {% for object in saved_post.blog.all %}
+                {{ object.title }}
+            {% endfor %}
+
+</body>
+</html>

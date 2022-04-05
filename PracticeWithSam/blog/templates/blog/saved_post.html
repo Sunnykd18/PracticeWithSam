@@ -5,7 +5,6 @@
         <div class="col-lg-3 mx-auto my-4">
             <div class="list-group">
                 <h3 href="{% url 'blog_list' %}" class="list-group-item list-group-item-action">All Blogs Category</h3>
-
                 {% for cat in categories %}
                     <a href="{% url 'blog_by_category' cat.id %}"
                        class="list-group-item list-group-item-action">{{ cat.name }}</a>
@@ -36,19 +35,17 @@
                        class="list-group-item list-group-item-action list-group-item-dark">Detail</a>
                 </div>
             </article>
-
         </div>
     </div>
     <div id='products' class="col-lg-9 mx-auto">
         {% for obj in saved_post %}
             <div class="row mx-auto">
             <div class="card mx-auto mb-3" id="" style="width: 18rem;">
-            <img class="card-img-top" src="{{ blog.image.url }}" alt="Card image cap">
+            <img class="card-img-top" href="{  }" src="{{ blog.image.url }}" alt="Card image cap">
             <div class="card-body">
                 <p class="card-title">{{ obj.name }}</p>
             </div>
         {% endfor %}
-
     </div>
 {% endblock content %}
 

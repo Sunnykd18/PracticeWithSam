@@ -116,3 +116,10 @@ def saved_post_list(request, blog_id):
     #     return redirect('blog_list')
 
     return render(request, 'blog/saved_post.html', context=context)
+def saved_post_list_by_name(request, save_post_id):
+    context = {
+        'saved_post': SavePost.objects.get(id=save_post_id),
+        # 'blog': Blog.objects.get(id=blog_id),
+        # 'categories': BlogCategory.objects.all(),
+    }
+    return render(request, 'blog/saved_post_list_by_name.html', context=context)
