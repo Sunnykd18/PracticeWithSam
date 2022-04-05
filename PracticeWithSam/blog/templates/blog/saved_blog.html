@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container-fluid mt-3">
+    {% for obj in saved_name %}
+    <div id='products' class="col-lg-6 mx-auto">
+        <div class="row mx-auto">
+            <div class="card mx-auto mb-2" id="" style="width: 18rem">
+                <div class="card-body">
+                    <h4><a class="card-title" href="{% url 'saved_post_list_by_name' obj.id %}">{{ obj.name }}</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
+{% endblock content %}

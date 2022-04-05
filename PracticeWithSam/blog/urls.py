@@ -12,5 +12,6 @@ urlpatterns = [
     path('add-to-save-post/<int:blog_id>/<int:save_post_id>', views.add_to_save_post, name='add_to_save_post'),
     path('saved-post-list/<int:blog_id>', views.saved_post_list, name='saved_post_list'),
     path('saved-post-list-by-name/<int:save_post_id>', views.saved_post_list_by_name, name='saved_post_list_by_name'),
+    path('saved-blog/', views.saved_blog, name='saved_blog')
 
 ]

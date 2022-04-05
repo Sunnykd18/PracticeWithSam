@@ -1,3 +1,5 @@
+{% extends "blog/base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,11 +7,22 @@
     <title>Title</title>
 </head>
 <body>
-
-            {{ saved_post.name }}
-            {% for object in saved_post.blog.all %}
-                {{ object.title }}
-            {% endfor %}
-
+ <div id='products' class="col-lg-9 mx-auto my-4">
+         {% for object in saved_post.blog.all %}
+                <div class="row col-lg-9 mx-auto">
+                    <h2 ><center>{{ message }}</center></h2>
+                    <article class="media content-section col-lg-10">
+                        <img class="rounded circle article-img" src="{{ blog.image }}">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                                <a class="mr-2" href="#">{{ blog.user }}</a>
+                            </div>
+                            <h2><a class="article-title" href="#">{{ object.title }}</a></h2>
+                            <p class="article-content">{{ object.content }}</p>
+                        </div>
+                    </article>
+                </div>
+         {% endfor %}
 </body>
 </html>
+{% endblock content %}
