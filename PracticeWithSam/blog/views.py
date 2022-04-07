@@ -135,3 +135,5 @@ def saved_blog(request):
         # 'blog': Blog.objects.get(id=blog_id),
     }
     return render(request, 'blog/saved_blog.html', context=context)
+
+

@@ -135,3 +135,5 @@ def wishlist_product(request):
     }
 
     return render(request, 'product/wishlist.html', context=context)
+
+

@@ -31,3 +31,16 @@ class Wishlist(models.Model):
     def __str__(self):
         return f"{self.user.username}'s wishlist"
 
+class AddToCart(models.Model):
+    products = models.ManyToManyField(Product)
+    user = models.ForeignKey(User, blank=True, null=True)
+    quantity = models.IntegerField(default=0)
+
+
+class Order(models.Model):
+    add_to_cart = models.ManyToManyField(AddToCart)
+    price = models.IntegerField()
+    address = models.CharField(max_length=100, blank=True, null=True)
+    status = models.BooleanField()
+    date = models.DateField()
+    phone = models.CharField(max_length=100, blank=True, null=True)
